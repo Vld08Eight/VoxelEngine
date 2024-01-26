@@ -30,21 +30,32 @@ float objectDistance(Vector3 vec1, Vector3 vec2){
     return sqrt(pow(vec1.x - vec2.x,2)+pow(vec1.y - vec2.y,2)+pow(vec1.z - vec2.z,2));
 };
 
-// Функция для генерации случайного шума Перлина в 2D
+
 Vector3* getDots(int x, int y, int z){
     Vector3* dots3D = new Vector3[8];
-    dots3D[0] = (Vector3){x - ((cubeSize.x)/2),y - ((cubeSize.x)/2), z - ((cubeSize.x)/2)};
-    dots3D[1] = (Vector3){x + ((cubeSize.x)/2),y - ((cubeSize.x)/2), z - ((cubeSize.x)/2)};
-    dots3D[2] = (Vector3){x - ((cubeSize.x)/2),y + ((cubeSize.x)/2), z - ((cubeSize.x)/2)};
-    dots3D[3] = (Vector3){x - ((cubeSize.x)/2),y - ((cubeSize.x)/2), z + ((cubeSize.x)/2)};
-    dots3D[4] = (Vector3){x + ((cubeSize.x)/2),y + ((cubeSize.x)/2), z - ((cubeSize.x)/2)};
-    dots3D[5] = (Vector3){x + ((cubeSize.x)/2),y - ((cubeSize.x)/2), z + ((cubeSize.x)/2)};
-    dots3D[6] = (Vector3){x - ((cubeSize.x)/2),y + ((cubeSize.x)/2), z + ((cubeSize.x)/2)};
-    dots3D[7] = (Vector3){x + ((cubeSize.x)/2),y + ((cubeSize.x)/2), z + ((cubeSize.x)/2)};
+    dots3D[0] = (Vector3){x - ((cubeSize.x)/2),y - ((cubeSize.x)/2), z - ((cubeSize.x)/2)};//000 0
+    dots3D[1] = (Vector3){x - ((cubeSize.x)/2),y - ((cubeSize.x)/2), z + ((cubeSize.x)/2)};//001 1
+    dots3D[2] = (Vector3){x - ((cubeSize.x)/2),y + ((cubeSize.x)/2), z - ((cubeSize.x)/2)};//010 2
+    dots3D[3] = (Vector3){x - ((cubeSize.x)/2),y + ((cubeSize.x)/2), z + ((cubeSize.x)/2)};//011 3
+    dots3D[4] = (Vector3){x + ((cubeSize.x)/2),y - ((cubeSize.x)/2), z - ((cubeSize.x)/2)};//100 4
+    dots3D[5] = (Vector3){x + ((cubeSize.x)/2),y - ((cubeSize.x)/2), z + ((cubeSize.x)/2)};//101 5
+    dots3D[6] = (Vector3){x + ((cubeSize.x)/2),y + ((cubeSize.x)/2), z - ((cubeSize.x)/2)};//110 6
+    dots3D[7] = (Vector3){x + ((cubeSize.x)/2),y + ((cubeSize.x)/2), z + ((cubeSize.x)/2)};//111 7
     return dots3D;
 }
 
-
+void DrawCW(Vector3 dots3D[]){
+    DrawLine(GetWorldToScreen(dots3D[0], camera).x, GetWorldToScreen(dots3D[0], camera).y,GetWorldToScreen(dots3D[2], camera).x, GetWorldToScreen(dots3D[2], camera).y,RED);//000-010
+    DrawLine(GetWorldToScreen(dots3D[0], camera).x, GetWorldToScreen(dots3D[0], camera).y,GetWorldToScreen(dots3D[4], camera).x, GetWorldToScreen(dots3D[4], camera).y,RED);//000-100
+    DrawLine(GetWorldToScreen(dots3D[4], camera).x, GetWorldToScreen(dots3D[4], camera).y,GetWorldToScreen(dots3D[6], camera).x, GetWorldToScreen(dots3D[6], camera).y,RED);//100-110
+    DrawLine(GetWorldToScreen(dots3D[4], camera).x, GetWorldToScreen(dots3D[4], camera).y,GetWorldToScreen(dots3D[5], camera).x, GetWorldToScreen(dots3D[5], camera).y,RED);//100-101
+    DrawLine(GetWorldToScreen(dots3D[2], camera).x, GetWorldToScreen(dots3D[2], camera).y,GetWorldToScreen(dots3D[6], camera).x, GetWorldToScreen(dots3D[6], camera).y,RED);//010-110
+    DrawLine(GetWorldToScreen(dots3D[2], camera).x, GetWorldToScreen(dots3D[2], camera).y,GetWorldToScreen(dots3D[3], camera).x, GetWorldToScreen(dots3D[3], camera).y,RED);//010-011
+    DrawLine(GetWorldToScreen(dots3D[1], camera).x, GetWorldToScreen(dots3D[1], camera).y,GetWorldToScreen(dots3D[3], camera).x, GetWorldToScreen(dots3D[3], camera).y,RED);//001-011
+    DrawLine(GetWorldToScreen(dots3D[1], camera).x, GetWorldToScreen(dots3D[1], camera).y,GetWorldToScreen(dots3D[5], camera).x, GetWorldToScreen(dots3D[5], camera).y,RED);//001-101
+    DrawLine(GetWorldToScreen(dots3D[2], camera).x, GetWorldToScreen(dots3D[6], camera).y,GetWorldToScreen(dots3D[6], camera).x, GetWorldToScreen(dots3D[7], camera).y,RED);//110-111
+    
+}
 
 int main()
 {
@@ -86,7 +97,7 @@ int main()
 static void UpdateDrawFrame(void)
 {
     UpdateCamera(&camera, CAMERA_FREE);
-    Vector3 *Dots3D = getDots(1,1,1);
+    Vector3 *dots3d = getDots(1,1,1);
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
         //x = camera.target.x;
         //y = camera.target.y;
@@ -94,7 +105,7 @@ static void UpdateDrawFrame(void)
         for (i = 0; i <= 1; i++){
             for (j = 0; j <= 1; j++){
                 for (k = 0; k <= 1; k++){
-                    std::cout << GetWorldToScreen(Dots3D[s], camera).x << " " << GetWorldToScreen(Dots3D[s], camera).y << std::endl;
+                    std::cout << GetWorldToScreen(dots3d[s], camera).x << " " << GetWorldToScreen(dots3d[s], camera).y << std::endl;
                     s++;
                 }
             }
@@ -113,17 +124,7 @@ static void UpdateDrawFrame(void)
         EndMode3D();
         
         
-        s = 0;
-        for (i = 0; i <= 1; i++){
-            for (j = 0; j <= 1; j++){
-                for (k = 0; k <= 1; k++){
-                    
-                    DrawRectangle(GetWorldToScreen(Dots3D[s], camera).x, GetWorldToScreen(Dots3D[s], camera).y,2,2,RED);
-                    
-                    s++;
-                }
-            }
-        }
+        DrawCW(dots3d);
         
         char p[10];
         DrawText("x", 5, 40, 30, DARKGRAY);
