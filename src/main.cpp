@@ -14,7 +14,7 @@ Vector3 cubeSize = { 1.0f, 1.0f, 1.0f };
 RayCollision collision = { 0 };
 int i,j,k,s;
 float x = 0,y = 0,z = 0;
-int arr[10][10][20] = {0};//curPos = (Vector3){0,0,0};
+int arr[100][100][200] = {0};//curPos = (Vector3){0,0,0};
 Ray ray[960][540] = { 0 };  
 int buffer[960][540] = {0};
 int w = 960, h = 540;
@@ -30,6 +30,24 @@ float objectDistance(Vector3 vec1, Vector3 vec2){
     return sqrt(pow(vec1.x - vec2.x,2)+pow(vec1.y - vec2.y,2)+pow(vec1.z - vec2.z,2));
 };
 
+std::vector<std::vector<double>> generatePerlinNoise(int x, int y) {
+    // Создаем вектор для хранения шума
+    std::vector<std::vector<double>> noise(x, std::vector<double>(y));
+
+    // Задаем случайное семя для генератора
+    std::random_device rd;
+    std::mt19937 rng(rd());
+    std::uniform_real_distribution<double> dist(-1.0, 1.0);
+
+    // Генерируем шум в каждой точке
+    for (int i = 0; i < x; ++i) {
+        for (int j = 0; j < y; ++j) {
+            noise[i][j] = dist(rng);
+        }
+    }
+
+    return noise;
+}
 
 Vector3* getDots(int x, int y, int z){
     Vector3* dots3D = new Vector3[8];
@@ -84,7 +102,17 @@ int main()
     camera.fovy = 60.0f;
     camera.projection = CAMERA_PERSPECTIVE;
     
-    
+    std::vector<std::vector<double>> perlinNoise = generatePerlinNoise(100, 100);
+
+
+
+    for (i = 0; i < 100; i++){
+        for (j = 0; j < 100; j++){
+            arr[i][j][(int)((perlinNoise[i][j]+1)*5)] = 1;
+            //std::cout << arr[i][j][1] << " "; 
+        }
+        //std::cout << std::endl;
+    }
 
     DisableCursor();         
     SetTargetFPS(60); 
@@ -109,20 +137,8 @@ int main()
 static void UpdateDrawFrame(void)
 {
     UpdateCamera(&camera, CAMERA_FREE);
-    Vector3 *dots3d = getDots(1,1,1);
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-        //x = camera.target.x;
-        //y = camera.target.y;
-        //z = camera.target.z;
-        for (i = 0; i <= 1; i++){
-            for (j = 0; j <= 1; j++){
-                for (k = 0; k <= 1; k++){
-                    std::cout << GetWorldToScreen(dots3d[s], camera).x << " " << GetWorldToScreen(dots3d[s], camera).y << std::endl;
-                    s++;
-                }
-            }
-        }
-    }
+    //Vector3 *dots3d = getDots(1,1,1);
+    
     BeginDrawing();
 
         ClearBackground(RAYWHITE);
@@ -135,8 +151,15 @@ static void UpdateDrawFrame(void)
             DrawGrid(10, 1.0f);
         EndMode3D();
         
+        for (i = 0; i < 100; i++){
+            for (j = 0; j < 100; j++){
+                for (k = 0; k < 100; k++){
+                    if (arr[i][j][k] == 1)
+                    DrawCW(getDots(i,j,k));
+                }
+            }
+        }
         
-        DrawCW(dots3d);
         
         char p[10];
         DrawText("x", 5, 40, 30, DARKGRAY);
