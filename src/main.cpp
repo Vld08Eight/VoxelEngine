@@ -45,16 +45,28 @@ Vector3* getDots(int x, int y, int z){
 }
 
 void DrawCW(Vector3 dots3D[]){
+    int h = GetScreenHeight(), w = GetScreenWidth();
+    if (GetWorldToScreen(dots3D[0], camera).x <= w && GetWorldToScreen(dots3D[0], camera).y <= h &&
+    GetWorldToScreen(dots3D[1], camera).x <= w && GetWorldToScreen(dots3D[1], camera).y <= h &&
+    GetWorldToScreen(dots3D[2], camera).x <= w && GetWorldToScreen(dots3D[2], camera).y <= h &&
+    GetWorldToScreen(dots3D[3], camera).x <= w && GetWorldToScreen(dots3D[3], camera).y <= h && 
+    GetWorldToScreen(dots3D[4], camera).x <= w && GetWorldToScreen(dots3D[4], camera).y <= h && 
+    GetWorldToScreen(dots3D[5], camera).x <= w && GetWorldToScreen(dots3D[5], camera).y <= h &&
+    GetWorldToScreen(dots3D[6], camera).x <= w && GetWorldToScreen(dots3D[6], camera).y <= h && 
+    GetWorldToScreen(dots3D[7], camera).x <= w && GetWorldToScreen(dots3D[7], camera).y <= h){
     DrawLine(GetWorldToScreen(dots3D[0], camera).x, GetWorldToScreen(dots3D[0], camera).y,GetWorldToScreen(dots3D[2], camera).x, GetWorldToScreen(dots3D[2], camera).y,RED);//000-010
     DrawLine(GetWorldToScreen(dots3D[0], camera).x, GetWorldToScreen(dots3D[0], camera).y,GetWorldToScreen(dots3D[4], camera).x, GetWorldToScreen(dots3D[4], camera).y,RED);//000-100
+    DrawLine(GetWorldToScreen(dots3D[0], camera).x, GetWorldToScreen(dots3D[0], camera).y,GetWorldToScreen(dots3D[1], camera).x, GetWorldToScreen(dots3D[1], camera).y,RED);//000-001
     DrawLine(GetWorldToScreen(dots3D[4], camera).x, GetWorldToScreen(dots3D[4], camera).y,GetWorldToScreen(dots3D[6], camera).x, GetWorldToScreen(dots3D[6], camera).y,RED);//100-110
     DrawLine(GetWorldToScreen(dots3D[4], camera).x, GetWorldToScreen(dots3D[4], camera).y,GetWorldToScreen(dots3D[5], camera).x, GetWorldToScreen(dots3D[5], camera).y,RED);//100-101
     DrawLine(GetWorldToScreen(dots3D[2], camera).x, GetWorldToScreen(dots3D[2], camera).y,GetWorldToScreen(dots3D[6], camera).x, GetWorldToScreen(dots3D[6], camera).y,RED);//010-110
     DrawLine(GetWorldToScreen(dots3D[2], camera).x, GetWorldToScreen(dots3D[2], camera).y,GetWorldToScreen(dots3D[3], camera).x, GetWorldToScreen(dots3D[3], camera).y,RED);//010-011
     DrawLine(GetWorldToScreen(dots3D[1], camera).x, GetWorldToScreen(dots3D[1], camera).y,GetWorldToScreen(dots3D[3], camera).x, GetWorldToScreen(dots3D[3], camera).y,RED);//001-011
     DrawLine(GetWorldToScreen(dots3D[1], camera).x, GetWorldToScreen(dots3D[1], camera).y,GetWorldToScreen(dots3D[5], camera).x, GetWorldToScreen(dots3D[5], camera).y,RED);//001-101
-    DrawLine(GetWorldToScreen(dots3D[2], camera).x, GetWorldToScreen(dots3D[6], camera).y,GetWorldToScreen(dots3D[6], camera).x, GetWorldToScreen(dots3D[7], camera).y,RED);//110-111
-    
+    DrawLine(GetWorldToScreen(dots3D[5], camera).x, GetWorldToScreen(dots3D[5], camera).y,GetWorldToScreen(dots3D[7], camera).x, GetWorldToScreen(dots3D[7], camera).y,RED);//101-111
+    DrawLine(GetWorldToScreen(dots3D[3], camera).x, GetWorldToScreen(dots3D[3], camera).y,GetWorldToScreen(dots3D[7], camera).x, GetWorldToScreen(dots3D[7], camera).y,RED);//011-111
+    DrawLine(GetWorldToScreen(dots3D[6], camera).x, GetWorldToScreen(dots3D[6], camera).y,GetWorldToScreen(dots3D[7], camera).x, GetWorldToScreen(dots3D[7], camera).y,RED);//110-111
+    }
 }
 
 int main()
