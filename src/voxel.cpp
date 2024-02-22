@@ -1,5 +1,9 @@
 #include "voxel.h"
-//dont forget derive camera from scene
+
+Voxel::Voxel() : World() {
+    // Конструктор класса Voxel вызывает конструктор базового класса World
+}
+
 void Voxel::drawVoxelWires(Vector3 dots3D[], Color color){
     bool draw = true;
     for (int i = 0; i < 8; i++){
@@ -10,15 +14,16 @@ void Voxel::drawVoxelWires(Vector3 dots3D[], Color color){
     }
     if (draw){
     int h = GetScreenHeight(), w = GetScreenWidth();
-    Vector2 dots2D[8] = {GetWorldToScreen(dots3D[0], camera),
-    GetWorldToScreen(dots3D[1], camera),
-    GetWorldToScreen(dots3D[2], camera),
-    GetWorldToScreen(dots3D[3], camera),
-    GetWorldToScreen(dots3D[4], camera),
-    GetWorldToScreen(dots3D[5], camera),
-    GetWorldToScreen(dots3D[6], camera),
-    GetWorldToScreen(dots3D[7], camera)};
-
+    
+    Vector2 dots2D[8] = {GetWorldToScreen(dots3D[0], this->camera),
+    GetWorldToScreen(dots3D[1], this->camera),
+    GetWorldToScreen(dots3D[2], this->camera),
+    GetWorldToScreen(dots3D[3], this->camera),
+    GetWorldToScreen(dots3D[4], this->camera),
+    GetWorldToScreen(dots3D[5], this->camera),
+    GetWorldToScreen(dots3D[6], this->camera),
+    GetWorldToScreen(dots3D[7], this->camera)};
+    
     if (dots2D[0].x <= w && dots2D[0].y <= h &&
     dots2D[1].x <= w && dots2D[1].y <= h &&
     dots2D[2].x <= w && dots2D[2].y <= h &&
@@ -44,10 +49,10 @@ void Voxel::drawVoxelWires(Vector3 dots3D[], Color color){
 }
 
 bool Voxel::onScreen(Vector3 dot3D){
-    Vector3 v1 = camera.position;
-    Vector3 v2 = camera.target;
-    Vector3 v12 = (Vector3){camera.target.x - camera.position.x,camera.target.y - camera.position.y,camera.target.z - camera.position.z};
-    Vector3 v1d = (Vector3){dot3D.x - camera.position.x,dot3D.y - camera.position.y,dot3D.z - camera.position.z};
+    Vector3 v1 = this->camera.position;
+    Vector3 v2 = this->camera.target;
+    Vector3 v12 = (Vector3){this->camera.target.x - this->camera.position.x,this->camera.target.y - this->camera.position.y,this->camera.target.z - this->camera.position.z};
+    Vector3 v1d = (Vector3){dot3D.x - this->camera.position.x,dot3D.y - this->camera.position.y,dot3D.z - this->camera.position.z};
     float ang = acos((float)(v12.x*v1d.x + v12.y*v1d.y + v12.z*v1d.z)/((float)sqrt(v12.x*v12.x + v12.y*v12.y + v12.z*v12.z) * (float)sqrt(v1d.x*v1d.x + v1d.y*v1d.y + v1d.z*v1d.z)))*180/3.1415;
     if (ang <= 60)return true;
     else return false;

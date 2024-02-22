@@ -13,9 +13,8 @@
 class Voxel : public World{
 protected:
     Vector3 cubeSize = { 0.1f, 0.1f, 0.1f };
-    
 public:
-    //Voxel(void);
+    Voxel(void);
     //~Voxel(void);
     void drawVoxelWires(Vector3 dots3D[], Color color);
     bool onScreen(Vector3);

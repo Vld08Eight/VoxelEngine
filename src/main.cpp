@@ -6,7 +6,6 @@ int i,j,k,s;
 int arr[500][500][500] = {0};
 
 Voxel vx1;
-Camera cam = vx1.getCamera();
 static void UpdateDrawFrame(void);
 
 
@@ -59,16 +58,16 @@ int main()
 // Update and draw game frame
 static void UpdateDrawFrame(void)
 {
-    UpdateCamera(&cam, CAMERA_FREE);
+    UpdateCamera(&vx1.camera, CAMERA_FREE);
     
     BeginDrawing();
 
         ClearBackground(RAYWHITE);
-        BeginMode3D(cam);
-    
+        BeginMode3D(vx1.camera);
+            
             DrawGrid(10, 1.0f);
         EndMode3D();
-        
+
         for (i = 0; i < 255; i++){
             for (j = 0; j < 255; j++){
                 for (k = 0; k < 255; k++){

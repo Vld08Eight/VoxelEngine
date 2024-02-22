@@ -10,12 +10,12 @@
 #include <string> 
 
 class World {
-protected:
-    Camera camera = { 0 };
+
     
 public:
+    Camera camera = { 0 };
     World();
-    Camera getCamera();
+    //Camera getCamera();
 };
 
 #endif // VOXEL_H
