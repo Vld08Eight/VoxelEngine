@@ -2,11 +2,12 @@
 
 Macroblock::Macroblock(Voxel vx){
     this->type = vx;
-    this->size = vx.getCubeSize() * this->div;
+    this->size = vx.getSize() * this->div;
 }
 
 void Macroblock::setType(Voxel vx){
     this->type = vx;
+    this->coordinates = vx.getCoordinates();
 }
 
 Voxel Macroblock::getType(){
@@ -23,4 +24,8 @@ int Macroblock::getDiv(){
 
 float Macroblock::getSize(){
     return this->size;
+}
+
+Vector3 Macroblock::getCoordinates(){
+    return this->coordinates;
 }

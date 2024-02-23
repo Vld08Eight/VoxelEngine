@@ -16,7 +16,7 @@ class World {
 public:
     Camera camera = { 0 };
     World();
-    void drawVoxelWires(Vector3 dots3D[]);
+    void drawVoxelWires(Voxel, Vector3 dots3D[]);
     bool onScreen(Vector3);
     Vector3* getCubeDots(Voxel);
     Vector3* getCubeDots(Macroblock);

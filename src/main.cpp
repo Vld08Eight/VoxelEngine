@@ -73,7 +73,7 @@ static void UpdateDrawFrame(void)
             for (j = 0; j < 3; j++){
                 for (k = 0; k < 150; k++){
                     if (!arr[i][j][k].isEmpty())
-                    vx1.drawVoxelWires(arr[i][j][k],vx1.getDots(arr[i][j][k]));
+                    vx1.drawVoxelWires(arr[i][j][k],vx1.getCubeDots(arr[i][j][k]));
                 }
             }
         }
