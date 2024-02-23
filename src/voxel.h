@@ -12,7 +12,7 @@
 
 class Voxel{
 private:
-    float cubeSize = 0.1f;
+    float size = 0.1f;
     bool isEmpty_flag = true;
     Vector3 coordinates;
 public:
@@ -20,7 +20,7 @@ public:
     Voxel();
     //~Voxel(void);
     bool isEmpty();
-    float getCubeSize();
+    float getSize();
     Vector3 getCoordinates();
 };
 

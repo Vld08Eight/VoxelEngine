@@ -3,7 +3,7 @@
 // Program main entry point
 //------------------------------------------------------------------------------------
 int i,j,k,s;
-Voxel arr[50][3][50];
+Voxel arr[150][3][150];
 
 World vx1;
 static void UpdateDrawFrame(void);
@@ -28,11 +28,11 @@ int main()
 
 
 
-    for (i = 0; i < 50; i++){
+    for (i = 0; i < 150; i++){
         for (j = 0; j < 3; j++){
-            for(k = 0; k < 50; k++){
+            for(k = 0; k < 150; k++){
             arr[i][j][k] = Voxel((Vector3){i,j,k});
-            std::cout << arr[i][j][k].getCoordinates().x << " " << arr[i][j][k].getCoordinates().y << " " << arr[i][j][k].getCoordinates().z << " " << std::endl;
+            //std::cout << arr[i][j][k].getCoordinates().x << " " << arr[i][j][k].getCoordinates().y << " " << arr[i][j][k].getCoordinates().z << " " << std::endl;
             }
         }
     }
@@ -69,9 +69,9 @@ static void UpdateDrawFrame(void)
             DrawGrid(10, 1.0f);
         EndMode3D();
 
-        for (i = 0; i < 50; i++){
+        for (i = 0; i < 150; i++){
             for (j = 0; j < 3; j++){
-                for (k = 0; k < 50; k++){
+                for (k = 0; k < 150; k++){
                     if (!arr[i][j][k].isEmpty())
                     vx1.drawVoxelWires(arr[i][j][k],vx1.getDots(arr[i][j][k]));
                 }

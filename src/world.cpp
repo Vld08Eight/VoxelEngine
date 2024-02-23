@@ -9,7 +9,7 @@ World::World(){
     std::cout << "init camera complete" << std::endl;
 };
 
-void World::drawVoxelWires(Voxel vx, Vector3 dots3D[]){
+void World::drawVoxelWires(Vector3 dots3D[]){
     bool draw = true;
     Color color = RED;
     for (int i = 0; i < 8; i++){
@@ -64,9 +64,28 @@ bool World::onScreen(Vector3 dot3D){
     else return false;
 }
 
-Vector3* World::getDots(Voxel vx){
+Vector3* World::getCubeDots(Voxel vx){
     Vector3 coordinates = vx.getCoordinates();
     float size = vx.getCubeSize();
+    float fx = coordinates.x, fy = coordinates.y, fz = coordinates.z;
+    fx *= size;
+    fy *= size;
+    fz *= size;
+    Vector3* dots3D = new Vector3[8];
+    dots3D[0] = (Vector3){fx - ((size)/2),fy - ((size)/2), fz - ((size)/2)};//000 0
+    dots3D[1] = (Vector3){fx - ((size)/2),fy - ((size)/2), fz + ((size)/2)};//001 1
+    dots3D[2] = (Vector3){fx - ((size)/2),fy + ((size)/2), fz - ((size)/2)};//010 2
+    dots3D[3] = (Vector3){fx - ((size)/2),fy + ((size)/2), fz + ((size)/2)};//011 3
+    dots3D[4] = (Vector3){fx + ((size)/2),fy - ((size)/2), fz - ((size)/2)};//100 4
+    dots3D[5] = (Vector3){fx + ((size)/2),fy - ((size)/2), fz + ((size)/2)};//101 5
+    dots3D[6] = (Vector3){fx + ((size)/2),fy + ((size)/2), fz - ((size)/2)};//110 6
+    dots3D[7] = (Vector3){fx + ((size)/2),fy + ((size)/2), fz + ((size)/2)};//111 7
+    return dots3D;
+}
+
+Vector3* World::getCubeDots(Macroblock mb){
+    Vector3 coordinates = mb.getCoordinates();
+    float size = mb.getSize();
     float fx = coordinates.x, fy = coordinates.y, fz = coordinates.z;
     fx *= size;
     fy *= size;

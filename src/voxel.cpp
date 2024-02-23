@@ -13,8 +13,8 @@ bool Voxel::isEmpty(){
     return this->isEmpty_flag;
 }
 
-float Voxel::getCubeSize(){
-    return this->cubeSize;
+float Voxel::getSize(){
+    return this->size;
 }
 
 Vector3 Voxel::getCoordinates(){
