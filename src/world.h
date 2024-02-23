@@ -8,6 +8,7 @@
 #include <random>
 #include <string.h>
 #include <string> 
+#include "voxel.h"
 
 class World {
 
@@ -15,7 +16,9 @@ class World {
 public:
     Camera camera = { 0 };
     World();
-    //Camera getCamera();
+    void drawVoxelWires(Voxel, Vector3 dots3D[]);
+    bool onScreen(Vector3);
+    Vector3* getDots(Voxel);
 };
 
 #endif // VOXEL_H
