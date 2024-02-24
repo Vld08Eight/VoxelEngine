@@ -4,24 +4,24 @@
 #include "raylib.h"
 #include "math.h"
 #include <iostream>
-#include <vector>
-#include <random>
-#include <string.h>
-#include <string> 
+#include "voxelFaces.h"
+#include "../math/voxelMath.h"
 
-
-class Voxel{
+class Voxel: public VoxelFaces{
 private:
     float size = 0.1f;
     bool isEmpty_flag = true;
     Vector3 coordinates;
+    //VoxelFaces faces;
 public:
+    Voxel(){}
     Voxel(Vector3);
-    Voxel();
+    using VoxelFaces::VoxelFaces;
     //~Voxel(void);
     bool isEmpty();
     float getSize();
     Vector3 getCoordinates();
+    //VoxelFaces getVoxelFaces();
 };
 
 #endif // VOXEL_H

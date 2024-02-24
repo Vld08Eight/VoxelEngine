@@ -3,16 +3,10 @@
 // Program main entry point
 //------------------------------------------------------------------------------------
 int i,j,k,s;
-Voxel arr[150][3][150];
+Voxel arr[150][1][150];
 
 World vx1;
 static void UpdateDrawFrame(void);
-
-
-
-float objectDistance(Vector3 vec1, Vector3 vec2){
-    return sqrt(pow(vec1.x - vec2.x,2)+pow(vec1.y - vec2.y,2)+pow(vec1.z - vec2.z,2));
-};
 
 
 int main()
@@ -29,10 +23,10 @@ int main()
 
 
     for (i = 0; i < 150; i++){
-        for (j = 0; j < 3; j++){
+        for (j = 0; j < 1; j++){
             for(k = 0; k < 150; k++){
             arr[i][j][k] = Voxel((Vector3){i,j,k});
-            //std::cout << arr[i][j][k].getCoordinates().x << " " << arr[i][j][k].getCoordinates().y << " " << arr[i][j][k].getCoordinates().z << " " << std::endl;
+            std::cout << arr[i][j][k].getCoordinates().x << " " << arr[i][j][k].getCoordinates().y << " " << arr[i][j][k].getCoordinates().z << " " << std::endl;
             }
         }
     }
@@ -70,10 +64,10 @@ static void UpdateDrawFrame(void)
         EndMode3D();
 
         for (i = 0; i < 150; i++){
-            for (j = 0; j < 3; j++){
+            for (j = 0; j < 1; j++){
                 for (k = 0; k < 150; k++){
                     if (!arr[i][j][k].isEmpty())
-                    vx1.drawVoxelWires(arr[i][j][k],vx1.getCubeDots(arr[i][j][k]));
+                    VoxelRender::DrawFace(arr[i][j][k].getFaceByNum(5),vx1.camera);
                 }
             }
         }

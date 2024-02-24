@@ -1,0 +1,67 @@
+#include "voxelMath.h"
+
+
+bool VoxelMath::onScreen(Camera camera, Vector3 dot3D){
+    Vector3 v1 = camera.position;
+    Vector3 v2 = camera.target;
+    Vector3 v12 = (Vector3){camera.target.x - camera.position.x,camera.target.y - camera.position.y,camera.target.z - camera.position.z};
+    Vector3 v1d = (Vector3){dot3D.x - camera.position.x,dot3D.y - camera.position.y,dot3D.z - camera.position.z};
+    float ang = acos((float)(v12.x*v1d.x + v12.y*v1d.y + v12.z*v1d.z)/((float)sqrt(v12.x*v12.x + v12.y*v12.y + v12.z*v12.z) * (float)sqrt(v1d.x*v1d.x + v1d.y*v1d.y + v1d.z*v1d.z)))*180/3.1415;
+    if (ang <= 60)return true;
+    else return false;
+}
+
+float VoxelMath::getVec3Distance(Vector3 vec1, Vector3 vec2){
+    return sqrt(pow(vec1.x - vec2.x,2)+pow(vec1.y - vec2.y,2)+pow(vec1.z - vec2.z,2));
+}
+
+Face* VoxelMath::getVoxelFaces(Vector3 coordinates, float size){
+    Face faces[6];
+
+    Vector3 dots[4];
+
+    float halfSize = size/2;
+    coordinates = VoxelMath::arrToWorld(coordinates, size);
+
+    dots[0] = (Vector3){coordinates.x+halfSize, coordinates.y-halfSize, coordinates.z+halfSize};//1002
+    dots[1] = (Vector3){coordinates.x-halfSize, coordinates.y-halfSize, coordinates.z+halfSize};
+    dots[3] = (Vector3){coordinates.x+halfSize, coordinates.y-halfSize, coordinates.z-halfSize};
+    dots[2] = (Vector3){coordinates.x-halfSize, coordinates.y-halfSize, coordinates.z-halfSize};//4003
+    faces[0] = Face(dots);
+
+    dots[0] = (Vector3){coordinates.x+halfSize, coordinates.y-halfSize, coordinates.z+halfSize};//1002
+    dots[1] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z+halfSize};
+    dots[3] = (Vector3){coordinates.x+halfSize, coordinates.y-halfSize, coordinates.z-halfSize};
+    dots[2] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z-halfSize};//4003
+    faces[1] = Face(dots);
+
+    dots[0] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z+halfSize};//1002
+    dots[1] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z+halfSize};
+    dots[3] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z-halfSize};
+    dots[2] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z-halfSize};//4003
+    faces[2] = Face(dots);
+
+    dots[0] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z+halfSize};//1002
+    dots[1] = (Vector3){coordinates.x-halfSize, coordinates.y-halfSize, coordinates.z+halfSize};
+    dots[3] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z-halfSize};
+    dots[2] = (Vector3){coordinates.x-halfSize, coordinates.y-halfSize, coordinates.z-halfSize};//4003
+    faces[3] = Face(dots);
+
+    dots[0] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z+halfSize};//1002
+    dots[1] = (Vector3){coordinates.x+halfSize, coordinates.y-halfSize, coordinates.z+halfSize};
+    dots[3] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z+halfSize};
+    dots[2] = (Vector3){coordinates.x-halfSize, coordinates.y-halfSize, coordinates.z+halfSize};//4003
+    faces[4] = Face(dots);
+
+    dots[0] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z-halfSize};//1002
+    dots[1] = (Vector3){coordinates.x+halfSize, coordinates.y-halfSize, coordinates.z-halfSize};
+    dots[3] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z-halfSize};
+    dots[2] = (Vector3){coordinates.x-halfSize, coordinates.y-halfSize, coordinates.z-halfSize};//4003
+    faces[5] = Face(dots);
+
+    return faces;
+}
+
+Vector3 VoxelMath::arrToWorld(Vector3 coordinates, float size){
+    return (Vector3){coordinates.x*size, coordinates.y*size, coordinates.z*size};
+}
