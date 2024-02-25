@@ -53,8 +53,7 @@ static void UpdateDrawFrame(void)
 {
     UpdateCamera(&world.camera, CAMERA_FREE);
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-        s++;
-        if (s > 5)s = 0;
+        
     }
     BeginDrawing();
 
@@ -64,15 +63,15 @@ static void UpdateDrawFrame(void)
             DrawGrid(10, 1.0f);
         EndMode3D();
 
-        ///for (i = 0; i < 150; i++){
-        //    for (j = 0; j < 1; j++){
-        //        for (k = 0; k < 150; k++){
-        //            VoxelRender::DrawFace(world.getVoxelByIndex(i,j,k).getFaceByNum(0),world.camera);
-        //        }
-        //    }
-        //}
-        VoxelRender::DrawFace(world.getVoxelByIndex(0,0,0).getFaceByNum(s),world.camera);
-        VoxelRender::DrawFaceWires(world.getVoxelByIndex(0,0,0).getFaceByNum(s),world.camera);
+        for (i = 0; i < 150; i++){
+            for (j = 0; j < 1; j++){
+                for (k = 0; k < 150; k++){
+                    VoxelRender::DrawVoxelFaces(world.getVoxelByIndex(i,j,k),world.camera);
+                    VoxelRender::DrawFaceWires(world.getVoxelByIndex(i,j,k).getFaceByNum(2),world.camera);
+                }
+            }
+        }
+        
         DrawFPS(10, 10);
         
     EndDrawing();

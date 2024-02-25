@@ -14,10 +14,10 @@ void VoxelRender::DrawFaceWires(Face face, Camera camera){
                             GetWorldToScreen(dots3D[2],camera),
                             GetWorldToScreen(dots3D[3],camera)};
 
-        DrawLine(dots2D[0].x, dots2D[0].y,dots2D[1].x, dots2D[1].y,RED);
-        DrawLine(dots2D[1].x, dots2D[1].y,dots2D[2].x, dots2D[2].y,RED);
-        DrawLine(dots2D[2].x, dots2D[2].y,dots2D[3].x, dots2D[3].y,RED);
-        DrawLine(dots2D[3].x, dots2D[3].y,dots2D[0].x, dots2D[0].y,RED);
+        DrawLine(dots2D[0].x, dots2D[0].y,dots2D[1].x, dots2D[1].y,BLACK);
+        DrawLine(dots2D[1].x, dots2D[1].y,dots2D[2].x, dots2D[2].y,BLACK);
+        DrawLine(dots2D[2].x, dots2D[2].y,dots2D[3].x, dots2D[3].y,BLACK);
+        DrawLine(dots2D[3].x, dots2D[3].y,dots2D[0].x, dots2D[0].y,BLACK);
     }
 }
 
@@ -36,7 +36,19 @@ void VoxelRender::DrawFace(Face face,Camera camera){
                             GetWorldToScreen(dots3D[2],camera),
                             GetWorldToScreen(dots3D[3],camera)};
 
-        DrawTriangle(dots2D[2],dots2D[1],dots2D[0],BLUE);
+        DrawTriangle(dots2D[0],dots2D[1],dots2D[2],BLUE);
         DrawTriangle(dots2D[2],dots2D[3],dots2D[0],BLUE);
+    }
+}
+//not optimize
+void VoxelRender::DrawVoxelWires(Voxel voxel, Camera camera){
+    for(int i = 0; i < 6; i++){
+        VoxelRender::DrawFaceWires(voxel.getFaceByNum(i), camera);
+    }
+}
+
+void VoxelRender::DrawVoxelFaces(Voxel voxel, Camera camera){
+    for(int i = 0; i < 6; i++){
+        VoxelRender::DrawFace(voxel.getFaceByNum(i), camera);
     }
 }

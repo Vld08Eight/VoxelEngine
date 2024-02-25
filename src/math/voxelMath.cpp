@@ -32,31 +32,31 @@ Face VoxelMath::getVoxelFaces(Vector3 coordinates, float size, int id){
     face = Face(dots);
     break;
     case 2:
-    dots[0] = (Vector3){coordinates.x+halfSize, coordinates.y-halfSize, coordinates.z+halfSize};//1002
+    dots[2] = (Vector3){coordinates.x+halfSize, coordinates.y-halfSize, coordinates.z+halfSize};//1002
     dots[1] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z+halfSize};
     dots[3] = (Vector3){coordinates.x+halfSize, coordinates.y-halfSize, coordinates.z-halfSize};
-    dots[2] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z-halfSize};//4003
+    dots[0] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z-halfSize};//4003
     face = Face(dots);
     break;
     case 3:
-    dots[0] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z+halfSize};//1002
+    dots[2] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z+halfSize};//1002
     dots[1] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z+halfSize};
     dots[3] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z-halfSize};
-    dots[2] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z-halfSize};//4003
+    dots[0] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z-halfSize};//4003
     face = Face(dots);
     break;
     case 4:
-    dots[0] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z+halfSize};//1002
+    dots[2] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z+halfSize};//1002
     dots[1] = (Vector3){coordinates.x-halfSize, coordinates.y-halfSize, coordinates.z+halfSize};
     dots[3] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z-halfSize};
-    dots[2] = (Vector3){coordinates.x-halfSize, coordinates.y-halfSize, coordinates.z-halfSize};//4003
+    dots[0] = (Vector3){coordinates.x-halfSize, coordinates.y-halfSize, coordinates.z-halfSize};//4003
     face = Face(dots);
     break;
     case 5:
-    dots[0] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z+halfSize};//1002
+    dots[2] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z+halfSize};//1002
     dots[1] = (Vector3){coordinates.x+halfSize, coordinates.y-halfSize, coordinates.z+halfSize};
     dots[3] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z+halfSize};
-    dots[2] = (Vector3){coordinates.x-halfSize, coordinates.y-halfSize, coordinates.z+halfSize};//4003
+    dots[0] = (Vector3){coordinates.x-halfSize, coordinates.y-halfSize, coordinates.z+halfSize};//4003
     face = Face(dots);
     break;
     case 6:
