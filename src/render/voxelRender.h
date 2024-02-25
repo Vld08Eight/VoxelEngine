@@ -14,9 +14,9 @@ class VoxelRender{
     
 public:
     static void DrawFaceWires(Face, Camera);
-    static void DrawFace(Face, Camera);
+    static void DrawFace(Face, Camera, Color);
     static void DrawVoxelWires(Voxel, Camera);
-    static void DrawVoxelFaces(Voxel, Camera);
+    static void DrawVoxelFaces(Voxel, Camera, Color);
 };
 
 #endif // VOXELRENDER_H

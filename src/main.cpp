@@ -66,8 +66,10 @@ static void UpdateDrawFrame(void)
         for (i = 0; i < 150; i++){
             for (j = 0; j < 1; j++){
                 for (k = 0; k < 150; k++){
-                    VoxelRender::DrawVoxelFaces(world.getVoxelByIndex(i,j,k),world.camera);
-                    VoxelRender::DrawFaceWires(world.getVoxelByIndex(i,j,k).getFaceByNum(2),world.camera);
+                    if ((i+k)%2==0)
+                    VoxelRender::DrawVoxelFaces(world.getVoxelByIndex(i,j,k),world.camera,(Color){200,200,200,255});
+                    else if((i+k)%2!=0)
+                    VoxelRender::DrawVoxelFaces(world.getVoxelByIndex(i,j,k),world.camera,(Color){100,100,100,255});
                 }
             }
         }
