@@ -66,10 +66,12 @@ static void UpdateDrawFrame(void)
         for (i = 0; i < 150; i++){
             for (j = 0; j < 1; j++){
                 for (k = 0; k < 150; k++){
-                    VoxelRender::DrawFace(arr[i][j][k].getFaceByNum(5),vx1.camera);
+                    VoxelRender::DrawFace(arr[i][j][k].getFaceByNum(2),vx1.camera);
                 }
             }
         }
+        
+
         DrawFPS(10, 10);
         
     EndDrawing();
