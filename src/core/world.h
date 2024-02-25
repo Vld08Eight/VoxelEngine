@@ -7,11 +7,15 @@
 #include "voxel.h"
 
 class World {
-
+    Voxel** worldArr;
+    int size;
     
 public:
     Camera camera = { 0 };
-    World();
+    World(int);
+    ~World();
+    void setVoxelByIndex(int,int,int);
+    Voxel getVoxelByIndex(int,int,int);
 };
 
 #endif // WORLD_H

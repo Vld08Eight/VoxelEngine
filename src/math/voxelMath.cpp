@@ -75,3 +75,7 @@ Face VoxelMath::getVoxelFaces(Vector3 coordinates, float size, int id){
 Vector3 VoxelMath::arrToWorld(Vector3 coordinates, float size){
     return (Vector3){coordinates.x*size, coordinates.y*size, coordinates.z*size};
 }
+
+Vector3 VoxelMath::vec3Multiply(Vector3 a, Vector3 b){
+    return (Vector3){a.y*b.z-a.z*b.y, a.x*b.z-a.z*b.x, a.x*b.y-a.y*b.x};
+}

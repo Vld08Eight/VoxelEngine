@@ -1,6 +1,11 @@
 #include "world.h"
 
-World::World(){
+World::World(int size){
+    this->size = size;
+    this->worldArr = new Voxel*[size];
+    for (int i = 0; i < size; i++) {
+        this->worldArr[i] = new Voxel[size * size];
+    }
     this->camera.position = (Vector3){ 10.0f, 10.0f, 8.0f };
     this->camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
     this->camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
@@ -9,3 +14,17 @@ World::World(){
     std::cout << "init camera complete" << std::endl;
 };
 
+World::~World() {
+    for (int i = 0; i < this->size; i++) {
+        delete[] this->worldArr[i];
+    }
+    delete[] this->worldArr;
+}
+
+void World::setVoxelByIndex(int i, int j, int k) {
+    this->worldArr[i][j * this->size + k] = Voxel((Vector3){(float)i,(float)j,(float)k});
+}
+
+Voxel World::getVoxelByIndex(int i, int j, int k) {
+    return this->worldArr[i][j * this->size + k];
+}

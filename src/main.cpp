@@ -2,10 +2,9 @@
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
-int i,j,k,s;
-Voxel arr[150][1][150];
+int i,j,k,s = 0;
 
-World vx1;
+World world = World(200);
 static void UpdateDrawFrame(void);
 
 
@@ -25,8 +24,7 @@ int main()
     for (i = 0; i < 150; i++){
         for (j = 0; j < 1; j++){
             for(k = 0; k < 150; k++){
-            arr[i][j][k] = Voxel((Vector3){i,j,k});
-            //std::cout << arr[i][j][k].getCoordinates().x << " " << arr[i][j][k].getCoordinates().y << " " << arr[i][j][k].getCoordinates().z << " " << std::endl;
+                world.setVoxelByIndex(i,j,k);
             }
         }
     }
@@ -53,25 +51,28 @@ int main()
 // Update and draw game frame
 static void UpdateDrawFrame(void)
 {
-    UpdateCamera(&vx1.camera, CAMERA_FREE);
-    
+    UpdateCamera(&world.camera, CAMERA_FREE);
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+        s++;
+        if (s > 5)s = 0;
+    }
     BeginDrawing();
 
         ClearBackground(RAYWHITE);
-        BeginMode3D(vx1.camera);
+        BeginMode3D(world.camera);
             
             DrawGrid(10, 1.0f);
         EndMode3D();
 
-        for (i = 0; i < 150; i++){
-            for (j = 0; j < 1; j++){
-                for (k = 0; k < 150; k++){
-                    VoxelRender::DrawFace(arr[i][j][k].getFaceByNum(2),vx1.camera);
-                }
-            }
-        }
-        
-
+        ///for (i = 0; i < 150; i++){
+        //    for (j = 0; j < 1; j++){
+        //        for (k = 0; k < 150; k++){
+        //            VoxelRender::DrawFace(world.getVoxelByIndex(i,j,k).getFaceByNum(0),world.camera);
+        //        }
+        //    }
+        //}
+        VoxelRender::DrawFace(world.getVoxelByIndex(0,0,0).getFaceByNum(s),world.camera);
+        VoxelRender::DrawFaceWires(world.getVoxelByIndex(0,0,0).getFaceByNum(s),world.camera);
         DrawFPS(10, 10);
         
     EndDrawing();

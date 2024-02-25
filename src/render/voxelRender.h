@@ -13,6 +13,7 @@ class VoxelRender{
 
     
 public:
+    static void DrawFaceWires(Face, Camera);
     static void DrawFace(Face, Camera);
 };
 
