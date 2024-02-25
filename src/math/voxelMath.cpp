@@ -79,3 +79,11 @@ Vector3 VoxelMath::arrToWorld(Vector3 coordinates, float size){
 Vector3 VoxelMath::vec3Multiply(Vector3 a, Vector3 b){
     return (Vector3){a.y*b.z-a.z*b.y, a.x*b.z-a.z*b.x, a.x*b.y-a.y*b.x};
 }
+
+Vector3 VoxelMath::getfaceNormal(Face face){
+    Vector3* dots = face.getFaceDots();
+    Vector3 p1 = VoxelMath::arrToWorld(dots[0], face.getSize());
+    Vector3 p2 = VoxelMath::arrToWorld(dots[1], face.getSize());
+    Vector3 p3 = VoxelMath::arrToWorld(dots[2], face.getSize());
+    return VoxelMath::vec3Multiply((Vector3){p2.x-p1.x,p2.y-p1.y,p2.z-p1.z},(Vector3){p3.x-p1.x,p3.y-p1.y,p3.z-p1.z});
+}

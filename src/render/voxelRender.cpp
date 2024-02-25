@@ -23,14 +23,13 @@ void VoxelRender::DrawFaceWires(Face face, Camera camera){
 
 void VoxelRender::DrawFace(Face face,Camera camera, Color color){
     Vector3* dots3D = face.getFaceDots();
-    //bool isOnScreen = true;
-   // for (int i = 0; i < 4; i++){
-   //     if (!VoxelMath::onScreen(camera,dots3D[i])){
-     //       isOnScreen = false;
-    //    }
-    //}
-    //if (isOnScreen == true){
-        //Vector3 normal = Vector3Multiply(dots3D[0],dots3D[1]);
+    bool isOnScreen = true;
+    for (int i = 0; i < 4; i++){
+        if (!VoxelMath::onScreen(camera,dots3D[i])){
+            isOnScreen = false;
+        }
+    }
+    if (isOnScreen == true){
         Vector2 dots2D[4] = {GetWorldToScreen(dots3D[0],camera),
                             GetWorldToScreen(dots3D[1],camera),
                             GetWorldToScreen(dots3D[2],camera),
@@ -38,7 +37,7 @@ void VoxelRender::DrawFace(Face face,Camera camera, Color color){
 
         DrawTriangle(dots2D[0],dots2D[1],dots2D[2],color);
         DrawTriangle(dots2D[2],dots2D[3],dots2D[0],color);
-    //}
+    }
 }
 //not optimize
 void VoxelRender::DrawVoxelWires(Voxel voxel, Camera camera){
@@ -48,8 +47,15 @@ void VoxelRender::DrawVoxelWires(Voxel voxel, Camera camera){
 }
 
 void VoxelRender::DrawVoxelFaces(Voxel voxel, Camera camera, Color color){
+    std::vector<Face> faces;
+    std::vector<float> distances;
     for(int i = 0; i < 6; i++){
-        VoxelRender::DrawFace(voxel.getFaceByNum(i), camera, color);
+        faces.push_back(voxel.getFaceByNum(i));
+        distances.push_back(VoxelMath::getVec3Distance(VoxelMath::getfaceNormal(faces[i]),camera.position));
+    }
+    faces = VoxelRender::sortFacesArray(faces,distances);
+    for(int i = 0; i < 6; i++){//change faces normals
+        VoxelRender::DrawFace(faces[i],camera,color);
     }
 }
 
@@ -102,4 +108,26 @@ void VoxelRender::DrawVoxelsVec(std::vector<Voxel> voxels, Camera camera){
     for(int i = 0; i < size; i++){
         VoxelRender::DrawVoxelFaces(voxels[i], camera, voxels[i].getColor());
     }
+}
+
+bool compareFacesVectors(const std::pair<float, Face>& lhs, const std::pair<float, Face>& rhs) {
+    return lhs.first < rhs.first;
+}
+
+std::vector<Face> VoxelRender::sortFacesArray(std::vector<Face> voxels, std::vector<float> distances){
+    std::vector<std::pair<float, Face>> pairs;
+    for (size_t i = 0; i < distances.size(); ++i) {
+        pairs.push_back(std::make_pair(distances[i], voxels[i]));
+    }
+
+    // Сортировка вектора пар с помощью алгоритма std::sort() и пользовательской функции сравнения
+    std::sort(pairs.begin(), pairs.end(), compareFacesVectors);
+
+    // Обновление вектора vec2 с помощью отсортированного вектора пар
+    std::vector<Face> sortedVec2;
+    for (const auto& pair : pairs) {
+        sortedVec2.push_back(pair.second);
+    }
+    return sortedVec2;
+
 }

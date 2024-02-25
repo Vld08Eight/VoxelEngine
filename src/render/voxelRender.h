@@ -22,6 +22,7 @@ public:
     static std::vector<Voxel> getRenderArray(Camera, World);
     static std::vector<Voxel> sortRenderArray(std::vector<Voxel>, std::vector<float>);
     static void DrawVoxelsVec(std::vector<Voxel>, Camera);
+    static std::vector<Face> sortFacesArray(std::vector<Face>, std::vector<float>);
 };
 
 #endif // VOXELRENDER_H
