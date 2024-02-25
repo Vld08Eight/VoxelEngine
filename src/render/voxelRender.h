@@ -9,7 +9,7 @@
 #include "../math/voxelMath.h"
 #include "../core/face.h"
 
-class VoxelRender : public World {
+class VoxelRender{
 
     
 public:

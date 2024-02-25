@@ -26,7 +26,7 @@ int main()
         for (j = 0; j < 1; j++){
             for(k = 0; k < 150; k++){
             arr[i][j][k] = Voxel((Vector3){i,j,k});
-            std::cout << arr[i][j][k].getCoordinates().x << " " << arr[i][j][k].getCoordinates().y << " " << arr[i][j][k].getCoordinates().z << " " << std::endl;
+            //std::cout << arr[i][j][k].getCoordinates().x << " " << arr[i][j][k].getCoordinates().y << " " << arr[i][j][k].getCoordinates().z << " " << std::endl;
             }
         }
     }
@@ -66,7 +66,6 @@ static void UpdateDrawFrame(void)
         for (i = 0; i < 150; i++){
             for (j = 0; j < 1; j++){
                 for (k = 0; k < 150; k++){
-                    if (!arr[i][j][k].isEmpty())
                     VoxelRender::DrawFace(arr[i][j][k].getFaceByNum(5),vx1.camera);
                 }
             }
