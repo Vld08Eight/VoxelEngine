@@ -11,3 +11,11 @@ float Face::getSize(){
 Vector3* Face::getFaceDots(){
     return this->coordinates;
 }
+
+Color Face::getColor(){
+    return this->color;
+}
+
+void Face::setColor(Color color){
+    this->color = color;
+}

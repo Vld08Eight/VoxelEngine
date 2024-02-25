@@ -8,6 +8,8 @@
 #include "../core/world.h"
 #include "../math/voxelMath.h"
 #include "../core/face.h"
+#include <vector>
+#include <algorithm>
 
 class VoxelRender{
 
@@ -17,6 +19,9 @@ public:
     static void DrawFace(Face, Camera, Color);
     static void DrawVoxelWires(Voxel, Camera);
     static void DrawVoxelFaces(Voxel, Camera, Color);
+    static std::vector<Voxel> getRenderArray(Camera, World);
+    static std::vector<Voxel> sortRenderArray(std::vector<Voxel>, std::vector<float>);
+    static void DrawVoxelsVec(std::vector<Voxel>, Camera);
 };
 
 #endif // VOXELRENDER_H

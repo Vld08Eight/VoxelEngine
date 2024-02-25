@@ -9,13 +9,12 @@
 class World {
     Voxel** worldArr;
     int size;
-    
 public:
     Camera camera = { 0 };
     World(int);
-    ~World();
-    void setVoxelByIndex(int,int,int);
+    void setVoxelByIndex(int,int,int, Color);
     Voxel getVoxelByIndex(int,int,int);
+    int getSize();
 };
 
 #endif // WORLD_H

@@ -2,7 +2,7 @@
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
-int i,j,k,s = 0;
+int i,j,k,s;
 
 World world = World(200);
 static void UpdateDrawFrame(void);
@@ -24,7 +24,10 @@ int main()
     for (i = 0; i < 150; i++){
         for (j = 0; j < 1; j++){
             for(k = 0; k < 150; k++){
-                world.setVoxelByIndex(i,j,k);
+                if ((i+k)%2==0)
+                world.setVoxelByIndex(i,j,k, (Color){200,200,200,255});
+                else if ((i+k)%2!=0)
+                world.setVoxelByIndex(i,j,k, (Color){100,100,100,255});
             }
         }
     }
@@ -63,19 +66,9 @@ static void UpdateDrawFrame(void)
             DrawGrid(10, 1.0f);
         EndMode3D();
 
-        for (i = 0; i < 150; i++){
-            for (j = 0; j < 1; j++){
-                for (k = 0; k < 150; k++){
-                    if ((i+k)%2==0)
-                    VoxelRender::DrawVoxelFaces(world.getVoxelByIndex(i,j,k),world.camera,(Color){200,200,200,255});
-                    else if((i+k)%2!=0)
-                    VoxelRender::DrawVoxelFaces(world.getVoxelByIndex(i,j,k),world.camera,(Color){100,100,100,255});
-                }
-            }
-        }
-        
+        VoxelRender::DrawVoxelsVec(VoxelRender::getRenderArray(world.camera, world),world.camera);
         DrawFPS(10, 10);
-        
+
     EndDrawing();
     //----------------------------------------------------------------------------------
 }

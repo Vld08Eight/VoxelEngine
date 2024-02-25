@@ -14,17 +14,15 @@ World::World(int size){
     std::cout << "init camera complete" << std::endl;
 };
 
-World::~World() {
-    for (int i = 0; i < this->size; i++) {
-        delete[] this->worldArr[i];
-    }
-    delete[] this->worldArr;
-}
 
-void World::setVoxelByIndex(int i, int j, int k) {
-    this->worldArr[i][j * this->size + k] = Voxel((Vector3){(float)i,(float)j,(float)k});
+void World::setVoxelByIndex(int i, int j, int k, Color color) {
+    this->worldArr[i][j * this->size + k] = Voxel((Vector3){(float)i,(float)j,(float)k}, color);
 }
 
 Voxel World::getVoxelByIndex(int i, int j, int k) {
     return this->worldArr[i][j * this->size + k];
+}
+
+int World::getSize(){
+    return this->size;
 }

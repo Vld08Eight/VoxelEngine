@@ -15,7 +15,7 @@ private:
     //VoxelFaces faces;
 public:
     Voxel(){}
-    Voxel(Vector3);
+    Voxel(Vector3, Color);
     using VoxelFaces::VoxelFaces;
     //~Voxel(void);
     bool isEmpty();

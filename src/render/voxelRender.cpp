@@ -23,13 +23,13 @@ void VoxelRender::DrawFaceWires(Face face, Camera camera){
 
 void VoxelRender::DrawFace(Face face,Camera camera, Color color){
     Vector3* dots3D = face.getFaceDots();
-    bool isOnScreen = true;
-    for (int i = 0; i < 4; i++){
-        if (!VoxelMath::onScreen(camera,dots3D[i])){
-            isOnScreen = false;
-        }
-    }
-    if (isOnScreen == true){
+    //bool isOnScreen = true;
+   // for (int i = 0; i < 4; i++){
+   //     if (!VoxelMath::onScreen(camera,dots3D[i])){
+     //       isOnScreen = false;
+    //    }
+    //}
+    //if (isOnScreen == true){
         //Vector3 normal = Vector3Multiply(dots3D[0],dots3D[1]);
         Vector2 dots2D[4] = {GetWorldToScreen(dots3D[0],camera),
                             GetWorldToScreen(dots3D[1],camera),
@@ -38,7 +38,7 @@ void VoxelRender::DrawFace(Face face,Camera camera, Color color){
 
         DrawTriangle(dots2D[0],dots2D[1],dots2D[2],color);
         DrawTriangle(dots2D[2],dots2D[3],dots2D[0],color);
-    }
+    //}
 }
 //not optimize
 void VoxelRender::DrawVoxelWires(Voxel voxel, Camera camera){
@@ -50,5 +50,56 @@ void VoxelRender::DrawVoxelWires(Voxel voxel, Camera camera){
 void VoxelRender::DrawVoxelFaces(Voxel voxel, Camera camera, Color color){
     for(int i = 0; i < 6; i++){
         VoxelRender::DrawFace(voxel.getFaceByNum(i), camera, color);
+    }
+}
+
+std::vector<Voxel> VoxelRender::getRenderArray(Camera camera, World worldArr){
+    std::vector<Voxel> voxels;
+    std::vector<float> distances;
+    Voxel voxel;
+    int size = worldArr.getSize();
+    for (int i = 0; i < size; i++){
+        for (int j = 0; j < size; j++){
+            for (int k = 0; k < size; k++){ 
+                voxel = worldArr.getVoxelByIndex(i,j,k);
+                if(voxel.isEmpty() == false){
+                    Vector3 voxWorld = VoxelMath::arrToWorld(voxel.getCoordinates(),voxel.getSize());
+                    if (VoxelMath::onScreen(camera, voxWorld)){
+                        voxels.push_back(voxel);
+                        distances.push_back(VoxelMath::getVec3Distance(camera.position, voxWorld));
+                    }
+                }
+            }
+        }
+    }
+    return VoxelRender::sortRenderArray(voxels,distances);
+}
+
+bool compareVectors(const std::pair<float, Voxel>& lhs, const std::pair<float, Voxel>& rhs) {
+    return lhs.first < rhs.first;
+}
+
+std::vector<Voxel> VoxelRender::sortRenderArray(std::vector<Voxel> voxels, std::vector<float> distances){
+    std::vector<std::pair<float, Voxel>> pairs;
+    for (size_t i = 0; i < distances.size(); ++i) {
+        pairs.push_back(std::make_pair(distances[i], voxels[i]));
+    }
+
+    // Сортировка вектора пар с помощью алгоритма std::sort() и пользовательской функции сравнения
+    std::sort(pairs.begin(), pairs.end(), compareVectors);
+
+    // Обновление вектора vec2 с помощью отсортированного вектора пар
+    std::vector<Voxel> sortedVec2;
+    for (const auto& pair : pairs) {
+        sortedVec2.push_back(pair.second);
+    }
+    return sortedVec2;
+
+}
+
+void VoxelRender::DrawVoxelsVec(std::vector<Voxel> voxels, Camera camera){
+    int size = voxels.size();
+    for(int i = 0; i < size; i++){
+        VoxelRender::DrawVoxelFaces(voxels[i], camera, voxels[i].getColor());
     }
 }
