@@ -12,7 +12,7 @@
 class WorldEdit {
     
 public:
-    static void setVoxel(World, Voxel, Camera);
+    static void setVoxel(World, Voxel, Camera, Color);
     //void removeVoxel(World, int,int,int);
 };
 

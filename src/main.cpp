@@ -71,10 +71,9 @@ static void UpdateDrawFrame(void)
 
         
         VoxelRender::DrawVoxelWires(VoxelRender::isSelectedVoxel(rendArr,world.camera),world.camera);
-        WorldEdit::setVoxel(world, VoxelRender::isSelectedVoxel(rendArr,world.camera), world.camera);
-        //VoxelRender::DrawFace(world.getVoxelByIndex(0,0,0).getFaceByNum(s),world.camera,world.getVoxelByIndex(0,0,0).getColor());
+        WorldEdit::setVoxel(world, VoxelRender::isSelectedVoxel(rendArr,world.camera), world.camera, GREEN);
         
-        
+        DrawCircle((float)GetScreenWidth()/2, (float)GetScreenHeight()/2, 2.5f, BLACK);
         DrawFPS(10, 10);
 
     EndDrawing();
