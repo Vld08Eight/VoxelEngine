@@ -48,20 +48,6 @@ void VoxelRender::DrawVoxelWires(Voxel voxel, Camera camera){
 
 
 void VoxelRender::DrawVoxelFaces(Voxel voxel, Camera camera, Color color, World world){
-    //int size = world.getSize();
-    //Vector3 coordinates = voxel.getCoordinates();
-    
-    //if (voxel.getCoordinates().x < size && voxel.getCoordinates().y < size && voxel.getCoordinates().z < size && voxel.getCoordinates().x > 0 && voxel.getCoordinates().y > 0 && voxel.getCoordinates().z > 0){
-    //    if(world.getVoxelByIndex(coordinates.x,coordinates.y-1,coordinates.z).isEmpty() == false)VoxelRender::DrawFace(voxel.getFaceByNum(0),camera,color);
-    //    if(world.getVoxelByIndex(coordinates.x+1,coordinates.y,coordinates.z).isEmpty() == false)VoxelRender::DrawFace(voxel.getFaceByNum(1),camera,color);
-    //    if(world.getVoxelByIndex(coordinates.x,coordinates.y+1,coordinates.z).isEmpty() == false)VoxelRender::DrawFace(voxel.getFaceByNum(2),camera,color);
-    //    if(world.getVoxelByIndex(coordinates.x-1,coordinates.y,coordinates.z).isEmpty() == false)VoxelRender::DrawFace(voxel.getFaceByNum(3),camera,color);
-    //    if(world.getVoxelByIndex(coordinates.x,coordinates.y,coordinates.z+1).isEmpty() == false)VoxelRender::DrawFace(voxel.getFaceByNum(4),camera,color);
-    //    if(world.getVoxelByIndex(coordinates.x,coordinates.y,coordinates.z-1).isEmpty() == false)VoxelRender::DrawFace(voxel.getFaceByNum(5),camera,color);
-    //    
-    //}
-
-    //else 
     for(int i = 0; i < 6; i++){
         VoxelRender::DrawFace(voxel.getFaceByNum(i),camera,color);
         //VoxelRender::DrawFaceWires(voxel.getFaceByNum(i),camera);
@@ -139,4 +125,25 @@ std::vector<Face> VoxelRender::sortFacesArray(std::vector<Face> voxels, std::vec
     }
     return sortedVec2;
 
+}
+
+Voxel VoxelRender::isSelected(std::vector<Voxel> rendArr, Camera camera){
+    RayCollision collision = { 0 };
+    float voxelSize2 = rendArr[0].getSize()/2;
+    float voxelSize = rendArr[0].getSize();
+    Ray ray = GetMouseRay((Vector2){(float)GetScreenWidth()/2.0f, (float)GetScreenHeight()/2.0f},camera);
+    int size = rendArr.size();
+
+    Voxel voxel;
+
+        for (int i = 0; i < size; i++){
+                    collision = GetRayCollisionBox(ray,
+                                        (BoundingBox){(Vector3){rendArr[i].getCoordinates().x*voxelSize  - voxelSize2, rendArr[i].getCoordinates().y*voxelSize - voxelSize2, rendArr[i].getCoordinates().z*voxelSize - voxelSize2 },
+                                                    (Vector3){rendArr[i].getCoordinates().x*voxelSize  + voxelSize2, rendArr[i].getCoordinates().y*voxelSize + voxelSize2, rendArr[i].getCoordinates().z*voxelSize + voxelSize2 }});
+                    if (collision.hit == true){
+                        voxel = rendArr[i];
+                    
+                    }
+            }
+    return voxel;
 }

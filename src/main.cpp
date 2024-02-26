@@ -8,6 +8,8 @@ World world = World(50);
 static void UpdateDrawFrame(void);
 
 
+
+
 int main()
 {
     // Initialization
@@ -56,8 +58,10 @@ static void UpdateDrawFrame(void)
 {
     UpdateCamera(&world.camera, CAMERA_FREE);
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-        s++;
-        if (s > 5)s=0;
+        //s++;
+        //if (s > 5)s=0;
+        //ray = GetMouseRay((Vector2){(float)GetScreenWidth()/2.0f, (float)GetScreenHeight()/2.0f},world.camera);
+        
     }
     BeginDrawing();
 
@@ -66,9 +70,12 @@ static void UpdateDrawFrame(void)
             
             DrawGrid(10, 1.0f);
         EndMode3D();
+        std::vector<Voxel> rendArr = VoxelRender::getRenderArray(world.camera, world);
+        VoxelRender::DrawVoxelsVec(rendArr,world.camera,world);
 
-        VoxelRender::DrawVoxelsVec(VoxelRender::getRenderArray(world.camera, world),world.camera,world);
-       
+        
+        VoxelRender::DrawVoxelWires(VoxelRender::isSelected(rendArr,world.camera),world.camera);
+        
         //VoxelRender::DrawFace(world.getVoxelByIndex(0,0,0).getFaceByNum(s),world.camera,world.getVoxelByIndex(0,0,0).getColor());
         
         

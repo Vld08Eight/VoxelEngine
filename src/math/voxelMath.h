@@ -4,8 +4,9 @@
 #include "raylib.h"
 #include "math.h"
 #include <iostream>
-//#include "../core/voxel.h"
 #include "../core/face.h"
+
+
 
 class VoxelMath {
 

@@ -86,3 +86,4 @@ Vector3 VoxelMath::getfaceNormal(Face face){
     Vector3 p3 = VoxelMath::arrToWorld(dots[2], face.getSize());
     return VoxelMath::vec3Multiply((Vector3){p2.x-p1.x,p2.y-p1.y,p2.z-p1.z},(Vector3){p3.x-p1.x,p3.y-p1.y,p3.z-p1.z});
 }
+
