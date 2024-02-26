@@ -18,10 +18,10 @@ public:
     static void DrawFaceWires(Face, Camera);
     static void DrawFace(Face, Camera, Color);
     static void DrawVoxelWires(Voxel, Camera);
-    static void DrawVoxelFaces(Voxel, Camera, Color);
+    static void DrawVoxelFaces(Voxel, Camera, Color, World);
     static std::vector<Voxel> getRenderArray(Camera, World);
     static std::vector<Voxel> sortRenderArray(std::vector<Voxel>, std::vector<float>);
-    static void DrawVoxelsVec(std::vector<Voxel>, Camera);
+    static void DrawVoxelsVec(std::vector<Voxel>, Camera, World);
     static std::vector<Face> sortFacesArray(std::vector<Face>, std::vector<float>);
 };
 

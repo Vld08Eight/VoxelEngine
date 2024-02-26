@@ -15,57 +15,56 @@ float VoxelMath::getVec3Distance(Vector3 vec1, Vector3 vec2){
     return sqrt(pow(vec1.x - vec2.x,2)+pow(vec1.y - vec2.y,2)+pow(vec1.z - vec2.z,2));
 }
 
-Face VoxelMath::getVoxelFaces(Vector3 coordinates, float size, int id){
+Face VoxelMath::getVoxelFaces(Vector3 coordinates, float size, int id) {
     Face face;
 
     Vector3 dots[4];
 
-    float halfSize = size/2;
+    float halfSize = size / 2;
     coordinates = VoxelMath::arrToWorld(coordinates, size);
-    switch (id)
-    {
+    switch (id) {
     case 1:
-    dots[0] = (Vector3){coordinates.x+halfSize, coordinates.y-halfSize, coordinates.z+halfSize};//1002
-    dots[1] = (Vector3){coordinates.x-halfSize, coordinates.y-halfSize, coordinates.z+halfSize};
-    dots[3] = (Vector3){coordinates.x+halfSize, coordinates.y-halfSize, coordinates.z-halfSize};
-    dots[2] = (Vector3){coordinates.x-halfSize, coordinates.y-halfSize, coordinates.z-halfSize};//4003
-    face = Face(dots);
-    break;
+        dots[2] = (Vector3){ coordinates.x - halfSize, coordinates.y - halfSize, coordinates.z - halfSize };
+        dots[1] = (Vector3){ coordinates.x + halfSize, coordinates.y - halfSize, coordinates.z - halfSize };
+        dots[0] = (Vector3){ coordinates.x + halfSize, coordinates.y - halfSize, coordinates.z + halfSize };
+        dots[3] = (Vector3){ coordinates.x - halfSize, coordinates.y - halfSize, coordinates.z + halfSize };
+        face = Face(dots);
+        break;
     case 2:
-    dots[2] = (Vector3){coordinates.x+halfSize, coordinates.y-halfSize, coordinates.z+halfSize};//1002
-    dots[1] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z+halfSize};
-    dots[3] = (Vector3){coordinates.x+halfSize, coordinates.y-halfSize, coordinates.z-halfSize};
-    dots[0] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z-halfSize};//4003
-    face = Face(dots);
-    break;
+        dots[0] = (Vector3){ coordinates.x + halfSize, coordinates.y + halfSize, coordinates.z - halfSize };
+        dots[1] = (Vector3){ coordinates.x + halfSize, coordinates.y - halfSize, coordinates.z - halfSize };
+        dots[2] = (Vector3){ coordinates.x + halfSize, coordinates.y - halfSize, coordinates.z + halfSize };
+        dots[3] = (Vector3){ coordinates.x + halfSize, coordinates.y + halfSize, coordinates.z + halfSize };
+        face = Face(dots);
+        break;
     case 3:
-    dots[2] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z+halfSize};//1002
-    dots[1] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z+halfSize};
-    dots[3] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z-halfSize};
-    dots[0] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z-halfSize};//4003
-    face = Face(dots);
-    break;
+        dots[2] = (Vector3){ coordinates.x - halfSize, coordinates.y + halfSize, coordinates.z + halfSize };
+        dots[1] = (Vector3){ coordinates.x + halfSize, coordinates.y + halfSize, coordinates.z + halfSize };
+        dots[0] = (Vector3){ coordinates.x + halfSize, coordinates.y + halfSize, coordinates.z - halfSize };
+        dots[3] = (Vector3){ coordinates.x - halfSize, coordinates.y + halfSize, coordinates.z - halfSize };
+        face = Face(dots);
+        break;
     case 4:
-    dots[2] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z+halfSize};//1002
-    dots[1] = (Vector3){coordinates.x-halfSize, coordinates.y-halfSize, coordinates.z+halfSize};
-    dots[3] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z-halfSize};
-    dots[0] = (Vector3){coordinates.x-halfSize, coordinates.y-halfSize, coordinates.z-halfSize};//4003
-    face = Face(dots);
-    break;
+        dots[2] = (Vector3){ coordinates.x - halfSize, coordinates.y - halfSize, coordinates.z + halfSize };
+        dots[1] = (Vector3){ coordinates.x - halfSize, coordinates.y + halfSize, coordinates.z + halfSize };
+        dots[0] = (Vector3){ coordinates.x - halfSize, coordinates.y + halfSize, coordinates.z - halfSize };
+        dots[3] = (Vector3){ coordinates.x - halfSize, coordinates.y - halfSize, coordinates.z - halfSize };
+        face = Face(dots);
+        break;
     case 5:
-    dots[2] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z+halfSize};//1002
-    dots[1] = (Vector3){coordinates.x+halfSize, coordinates.y-halfSize, coordinates.z+halfSize};
-    dots[3] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z+halfSize};
-    dots[0] = (Vector3){coordinates.x-halfSize, coordinates.y-halfSize, coordinates.z+halfSize};//4003
-    face = Face(dots);
-    break;
+        dots[0] = (Vector3){ coordinates.x + halfSize, coordinates.y - halfSize, coordinates.z + halfSize };
+        dots[1] = (Vector3){ coordinates.x - halfSize, coordinates.y - halfSize, coordinates.z + halfSize };
+        dots[2] = (Vector3){ coordinates.x - halfSize, coordinates.y + halfSize, coordinates.z + halfSize };
+        dots[3] = (Vector3){ coordinates.x + halfSize, coordinates.y + halfSize, coordinates.z + halfSize };
+        face = Face(dots);
+        break;
     case 6:
-    dots[0] = (Vector3){coordinates.x+halfSize, coordinates.y+halfSize, coordinates.z-halfSize};//1002
-    dots[1] = (Vector3){coordinates.x+halfSize, coordinates.y-halfSize, coordinates.z-halfSize};
-    dots[3] = (Vector3){coordinates.x-halfSize, coordinates.y+halfSize, coordinates.z-halfSize};
-    dots[2] = (Vector3){coordinates.x-halfSize, coordinates.y-halfSize, coordinates.z-halfSize};//4003
-    face = Face(dots);
-    break;
+        dots[0] = (Vector3){ coordinates.x - halfSize, coordinates.y + halfSize, coordinates.z - halfSize };
+        dots[1] = (Vector3){ coordinates.x - halfSize, coordinates.y - halfSize, coordinates.z - halfSize };
+        dots[2] = (Vector3){ coordinates.x + halfSize, coordinates.y - halfSize, coordinates.z - halfSize };
+        dots[3] = (Vector3){ coordinates.x + halfSize, coordinates.y + halfSize, coordinates.z - halfSize };
+        face = Face(dots);
+        break;
     default:
         break;
     }

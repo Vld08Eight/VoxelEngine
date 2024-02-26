@@ -35,8 +35,8 @@ void VoxelRender::DrawFace(Face face,Camera camera, Color color){
                             GetWorldToScreen(dots3D[2],camera),
                             GetWorldToScreen(dots3D[3],camera)};
 
-        DrawTriangle(dots2D[0],dots2D[1],dots2D[2],color);
-        DrawTriangle(dots2D[2],dots2D[3],dots2D[0],color);
+        DrawTriangle(dots2D[0],dots2D[2],dots2D[1],color);
+        DrawTriangle(dots2D[0],dots2D[3],dots2D[2],color);
     }
 }
 //not optimize
@@ -46,28 +46,37 @@ void VoxelRender::DrawVoxelWires(Voxel voxel, Camera camera){
     }
 }
 
-void VoxelRender::DrawVoxelFaces(Voxel voxel, Camera camera, Color color){
-    std::vector<Face> faces;
-    std::vector<float> distances;
+
+void VoxelRender::DrawVoxelFaces(Voxel voxel, Camera camera, Color color, World world){
+    //int size = world.getSize();
+    //Vector3 coordinates = voxel.getCoordinates();
+    
+    //if (voxel.getCoordinates().x < size && voxel.getCoordinates().y < size && voxel.getCoordinates().z < size && voxel.getCoordinates().x > 0 && voxel.getCoordinates().y > 0 && voxel.getCoordinates().z > 0){
+    //    if(world.getVoxelByIndex(coordinates.x,coordinates.y-1,coordinates.z).isEmpty() == false)VoxelRender::DrawFace(voxel.getFaceByNum(0),camera,color);
+    //    if(world.getVoxelByIndex(coordinates.x+1,coordinates.y,coordinates.z).isEmpty() == false)VoxelRender::DrawFace(voxel.getFaceByNum(1),camera,color);
+    //    if(world.getVoxelByIndex(coordinates.x,coordinates.y+1,coordinates.z).isEmpty() == false)VoxelRender::DrawFace(voxel.getFaceByNum(2),camera,color);
+    //    if(world.getVoxelByIndex(coordinates.x-1,coordinates.y,coordinates.z).isEmpty() == false)VoxelRender::DrawFace(voxel.getFaceByNum(3),camera,color);
+    //    if(world.getVoxelByIndex(coordinates.x,coordinates.y,coordinates.z+1).isEmpty() == false)VoxelRender::DrawFace(voxel.getFaceByNum(4),camera,color);
+    //    if(world.getVoxelByIndex(coordinates.x,coordinates.y,coordinates.z-1).isEmpty() == false)VoxelRender::DrawFace(voxel.getFaceByNum(5),camera,color);
+    //    
+    //}
+
+    //else 
     for(int i = 0; i < 6; i++){
-        faces.push_back(voxel.getFaceByNum(i));
-        distances.push_back(VoxelMath::getVec3Distance(VoxelMath::getfaceNormal(faces[i]),camera.position));
+        VoxelRender::DrawFace(voxel.getFaceByNum(i),camera,color);
+        //VoxelRender::DrawFaceWires(voxel.getFaceByNum(i),camera);
     }
-    faces = VoxelRender::sortFacesArray(faces,distances);
-    for(int i = 0; i < 6; i++){//change faces normals
-        VoxelRender::DrawFace(faces[i],camera,color);
-    }
+    
 }
 
 std::vector<Voxel> VoxelRender::getRenderArray(Camera camera, World worldArr){
     std::vector<Voxel> voxels;
     std::vector<float> distances;
-    Voxel voxel;
     int size = worldArr.getSize();
     for (int i = 0; i < size; i++){
         for (int j = 0; j < size; j++){
             for (int k = 0; k < size; k++){ 
-                voxel = worldArr.getVoxelByIndex(i,j,k);
+                Voxel voxel = worldArr.getVoxelByIndex(i,j,k); // Declare voxel inside the loop
                 if(voxel.isEmpty() == false){
                     Vector3 voxWorld = VoxelMath::arrToWorld(voxel.getCoordinates(),voxel.getSize());
                     if (VoxelMath::onScreen(camera, voxWorld)){
@@ -82,7 +91,7 @@ std::vector<Voxel> VoxelRender::getRenderArray(Camera camera, World worldArr){
 }
 
 bool compareVectors(const std::pair<float, Voxel>& lhs, const std::pair<float, Voxel>& rhs) {
-    return lhs.first < rhs.first;
+    return lhs.first > rhs.first;
 }
 
 std::vector<Voxel> VoxelRender::sortRenderArray(std::vector<Voxel> voxels, std::vector<float> distances){
@@ -103,10 +112,10 @@ std::vector<Voxel> VoxelRender::sortRenderArray(std::vector<Voxel> voxels, std::
 
 }
 
-void VoxelRender::DrawVoxelsVec(std::vector<Voxel> voxels, Camera camera){
+void VoxelRender::DrawVoxelsVec(std::vector<Voxel> voxels, Camera camera, World world){
     int size = voxels.size();
     for(int i = 0; i < size; i++){
-        VoxelRender::DrawVoxelFaces(voxels[i], camera, voxels[i].getColor());
+        VoxelRender::DrawVoxelFaces(voxels[i], camera, voxels[i].getColor(), world);
     }
 }
 
