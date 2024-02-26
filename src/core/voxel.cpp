@@ -6,6 +6,11 @@ Voxel::Voxel(Vector3 coordinates, Color color) : VoxelFaces(coordinates){
     this->setColor(color);
 }
 
+Voxel::Voxel(Color color){
+    this->isEmpty_flag = false;
+    this->setColor(color);
+}
+
 bool Voxel::isEmpty(){
     return this->isEmpty_flag;
 }

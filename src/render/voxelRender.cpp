@@ -127,7 +127,7 @@ std::vector<Face> VoxelRender::sortFacesArray(std::vector<Face> voxels, std::vec
 
 }
 
-Voxel VoxelRender::isSelected(std::vector<Voxel> rendArr, Camera camera){
+Voxel VoxelRender::isSelectedVoxel(std::vector<Voxel> rendArr, Camera camera){
     RayCollision collision = { 0 };
     float voxelSize2 = rendArr[0].getSize()/2;
     float voxelSize = rendArr[0].getSize();
@@ -146,4 +146,24 @@ Voxel VoxelRender::isSelected(std::vector<Voxel> rendArr, Camera camera){
                     }
             }
     return voxel;
+}
+
+int VoxelRender::isSelectedFace(Voxel voxel, Camera camera){
+    float dist = 1000,ndist;
+    int face;
+    RayCollision collision = { 0 };
+    Ray ray = GetMouseRay((Vector2){(float)GetScreenWidth()/2.0f, (float)GetScreenHeight()/2.0f},camera);
+    
+    for (int i = 0; i < 6; i++){
+        Vector3* dots3D = voxel.getFaceByNum(i).getFaceDots();
+        collision = GetRayCollisionQuad(ray, dots3D[0], dots3D[1],dots3D[2], dots3D[3]);
+        if (collision.hit == true){
+            ndist = VoxelMath::getVec3Distance((Vector3){(dots3D[0].x+dots3D[2].x)/2,(dots3D[0].y+dots3D[2].y)/2,(dots3D[0].z+dots3D[2].z)/2},camera.position);
+            if (dist > ndist){
+            face = i;
+            dist = ndist;
+            }       
+        }
+    }
+    return face;
 }

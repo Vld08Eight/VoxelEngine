@@ -15,6 +15,7 @@ private:
     //VoxelFaces faces;
 public:
     Voxel(){}
+    Voxel(Color);
     Voxel(Vector3, Color);
     using VoxelFaces::VoxelFaces;
     //~Voxel(void);

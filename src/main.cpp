@@ -5,6 +5,7 @@
 int i,j,k,s = 0;
 
 World world = World(50);
+
 static void UpdateDrawFrame(void);
 
 
@@ -57,12 +58,7 @@ int main()
 static void UpdateDrawFrame(void)
 {
     UpdateCamera(&world.camera, CAMERA_FREE);
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-        //s++;
-        //if (s > 5)s=0;
-        //ray = GetMouseRay((Vector2){(float)GetScreenWidth()/2.0f, (float)GetScreenHeight()/2.0f},world.camera);
-        
-    }
+    
     BeginDrawing();
 
         ClearBackground(RAYWHITE);
@@ -74,8 +70,8 @@ static void UpdateDrawFrame(void)
         VoxelRender::DrawVoxelsVec(rendArr,world.camera,world);
 
         
-        VoxelRender::DrawVoxelWires(VoxelRender::isSelected(rendArr,world.camera),world.camera);
-        
+        VoxelRender::DrawVoxelWires(VoxelRender::isSelectedVoxel(rendArr,world.camera),world.camera);
+        WorldEdit::setVoxel(world, VoxelRender::isSelectedVoxel(rendArr,world.camera), world.camera);
         //VoxelRender::DrawFace(world.getVoxelByIndex(0,0,0).getFaceByNum(s),world.camera,world.getVoxelByIndex(0,0,0).getColor());
         
         

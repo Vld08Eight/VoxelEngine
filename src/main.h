@@ -10,5 +10,7 @@
 #include "core/voxel.h"
 #include "core/world.h"
 #include "render/voxelRender.h"
+#include "worldEdit/worldEdit.h"
+
 
 #endif // MAIN_H

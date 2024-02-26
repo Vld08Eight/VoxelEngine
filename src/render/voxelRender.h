@@ -23,7 +23,8 @@ public:
     static std::vector<Voxel> sortRenderArray(std::vector<Voxel>, std::vector<float>);
     static void DrawVoxelsVec(std::vector<Voxel>, Camera, World);
     static std::vector<Face> sortFacesArray(std::vector<Face>, std::vector<float>);
-    static Voxel isSelected(std::vector<Voxel>, Camera);
+    static Voxel isSelectedVoxel(std::vector<Voxel>, Camera);
+    static int isSelectedFace(Voxel, Camera);
 };
 
 #endif // VOXELRENDER_H
