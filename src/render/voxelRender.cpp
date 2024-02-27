@@ -128,6 +128,7 @@ std::vector<Face> VoxelRender::sortFacesArray(std::vector<Face> voxels, std::vec
 }
 
 Voxel VoxelRender::isSelectedVoxel(std::vector<Voxel> rendArr, Camera camera){
+    bool isCol = false;
     RayCollision collision = { 0 };
     float voxelSize2 = rendArr[0].getSize()/2;
     float voxelSize = rendArr[0].getSize();
@@ -142,13 +143,16 @@ Voxel VoxelRender::isSelectedVoxel(std::vector<Voxel> rendArr, Camera camera){
                                                     (Vector3){rendArr[i].getCoordinates().x*voxelSize  + voxelSize2, rendArr[i].getCoordinates().y*voxelSize + voxelSize2, rendArr[i].getCoordinates().z*voxelSize + voxelSize2 }});
                     if (collision.hit == true){
                         voxel = rendArr[i];
-                    
+                        isCol = true;
                     }
             }
-    return voxel;
+    if (isCol)
+        return voxel;
+    else return Voxel((Vector3){-1,-1,-1},RED);
 }
 
 int VoxelRender::isSelectedFace(Voxel voxel, Camera camera){
+    bool isCol = false;
     float dist = 1000,ndist;
     int face;
     RayCollision collision = { 0 };
@@ -162,6 +166,7 @@ int VoxelRender::isSelectedFace(Voxel voxel, Camera camera){
             if (dist > ndist){
             face = i;
             dist = ndist;
+            bool isCol = true;
             }       
         }
     }

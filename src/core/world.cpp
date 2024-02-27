@@ -26,3 +26,7 @@ Voxel World::getVoxelByIndex(int i, int j, int k) {
 int World::getSize(){
     return this->size;
 }
+
+void World::setEmptyByIndex(int i, int j, int k){
+    this->worldArr[i][j * this->size + k] = Voxel();
+}

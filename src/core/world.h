@@ -15,6 +15,7 @@ public:
     void setVoxelByIndex(int,int,int, Color);
     Voxel getVoxelByIndex(int,int,int);
     int getSize();
+    void setEmptyByIndex(int,int,int);
 };
 
 #endif // WORLD_H

@@ -67,12 +67,14 @@ static void UpdateDrawFrame(void)
             DrawGrid(10, 1.0f);
         EndMode3D();
         std::vector<Voxel> rendArr = VoxelRender::getRenderArray(world.camera, world);
+        if (rendArr.size() > 0){
         VoxelRender::DrawVoxelsVec(rendArr,world.camera,world);
-
+        Voxel voxel = VoxelRender::isSelectedVoxel(rendArr,world.camera);
         
-        VoxelRender::DrawVoxelWires(VoxelRender::isSelectedVoxel(rendArr,world.camera),world.camera);
-        WorldEdit::setVoxel(world, VoxelRender::isSelectedVoxel(rendArr,world.camera), world.camera, GREEN);
-        
+        VoxelRender::DrawVoxelWires(voxel,world.camera);
+        WorldEdit::setVoxel(world, voxel, world.camera, GREEN);
+        WorldEdit::removeVoxel(world, voxel);
+        }
         DrawCircle((float)GetScreenWidth()/2, (float)GetScreenHeight()/2, 2.5f, BLACK);
         DrawFPS(10, 10);
 

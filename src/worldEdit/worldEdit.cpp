@@ -2,9 +2,11 @@
 
 
 void WorldEdit::setVoxel(World world, Voxel voxel, Camera camera, Color color){
+    
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-        int face = VoxelRender::isSelectedFace(voxel, camera);
         Vector3 coord = voxel.getCoordinates();
+        if (coord.x != -1){
+        int face = VoxelRender::isSelectedFace(voxel, camera);
         std::cout << coord.x << " " << coord.y << " " << coord.z << " " << face << std::endl;
         switch (face)
         {
@@ -29,5 +31,15 @@ void WorldEdit::setVoxel(World world, Voxel voxel, Camera camera, Color color){
         default:
             break;
         }
+    }
+    }
+}
+
+void WorldEdit::removeVoxel(World world, Voxel voxel){
+    if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)){
+        Vector3 coord = voxel.getCoordinates();
+        if (coord.x != -1){
+        world.setEmptyByIndex(coord.x,coord.y,coord.z);
+    }
     }
 }
