@@ -5,6 +5,7 @@ Chunk::Chunk(){}
 Chunk::Chunk(int size, int macroSize, Vector3 position){
     this->size = size;
     this->position = position;
+    this->data = new Macroblock*[this->size];
     for (int i = 0; i < this->size; i++){
         for (int j = 0; j < this->size; j++){
             for (int k = 0; k < this->size; k++){
@@ -17,6 +18,7 @@ Chunk::Chunk(int size, int macroSize, Vector3 position){
 Chunk::Chunk(int size, int macroSize,Material material, Vector3 position){
     this->size = size;
     this->position = position;
+    this->data = new Macroblock*[this->size];
     for (int i = 0; i < this->size; i++){
         for (int j = 0; j < this->size; j++){
             for (int k = 0; k < this->size; k++){
@@ -29,6 +31,7 @@ Chunk::Chunk(int size, int macroSize,Material material, Vector3 position){
 Chunk::Chunk(int size, Macroblock** macroblock, Vector3 position){
     this->size = size;
     this->position = position;
+    this->data = new Macroblock*[this->size];
     for (int i = 0; i < this->size; i++){
         for (int j = 0; j < this->size; j++){
             for (int k = 0; k < this->size; k++){

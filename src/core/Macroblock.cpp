@@ -4,6 +4,7 @@ Macroblock::Macroblock(){}
 
 Macroblock::Macroblock(int size){
     this->size = size;
+    this->data = new Voxel*[this->size];
     for (int i = 0; i < this->size; i++){
         for (int j = 0; j < this->size; j++){
             for (int k = 0; k < this->size; k++){
@@ -15,6 +16,7 @@ Macroblock::Macroblock(int size){
 
 Macroblock::Macroblock(int size, Vector3 position){
     this->size = size;
+    this->data = new Voxel*[this->size];
     for (int i = 0; i < this->size; i++){
         for (int j = 0; j < this->size; j++){
             for (int k = 0; k < this->size; k++){
@@ -28,6 +30,7 @@ Macroblock::Macroblock(int size, Vector3 position){
 Macroblock::Macroblock(int size, Material material, Vector3 position){
     this->size = size;
     this->material = material;
+    this->data = new Voxel*[this->size];
     for (int i = 0; i < this->size; i++){
         for (int j = 0; j < this->size; j++){
             for (int k = 0; k < this->size; k++){
@@ -40,7 +43,7 @@ Macroblock::Macroblock(int size, Material material, Vector3 position){
 
 Macroblock::Macroblock(int size, Voxel** voxels, Vector3 position){
     this->size = size;
-    
+    this->data = new Voxel*[this->size];
     for (int i = 0; i < this->size; i++){
         for (int j = 0; j < this->size; j++){
             for (int k = 0; k < this->size; k++){

@@ -12,12 +12,12 @@ private:
 public:
 	Camera camera = { 0 };
 	World();
-	World(Material);
-	World(Chunk**);
+	World(int);
+	World(int,Chunk**);
 	//
-	void setChunkByIndex(int,int,int,Material);
-	void setChunkByIndex(int,int,int,Macroblock);
-	void setChunkByIndex(Vector3,Material);
+	void setChunkByIndex(int,int,int,int,Material);
+	void setChunkByIndex(int,int,int,int,Macroblock);
+	void setChunkByIndex(Vector3,int,Material);
 	void setChunkByIndex(Vector3,Macroblock);
 	//
 	Voxel getChunkByIndex(int,int,int);
