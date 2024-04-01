@@ -1,28 +1,43 @@
-#include "voxel.h"
+#include "Voxel.h"
 
-Voxel::Voxel(Vector3 coordinates, Color color) : VoxelFaces(coordinates){
-    this->coordinates = coordinates;
-    this->isEmpty_flag = false;
-    this->setColor(color);
+Voxel::Voxel(){}
+
+Voxel::Voxel(Vector3 coordinates){
+    this->faces[0] = VoxelMath::getVoxelFaces(coordinates, this->getSize(),1);
+    this->faces[1] = VoxelMath::getVoxelFaces(coordinates, this->getSize(),2);
+    this->faces[2] = VoxelMath::getVoxelFaces(coordinates, this->getSize(),3);
+    this->faces[3] = VoxelMath::getVoxelFaces(coordinates, this->getSize(),4);
+    this->faces[4] = VoxelMath::getVoxelFaces(coordinates, this->getSize(),5);
+    this->faces[5] = VoxelMath::getVoxelFaces(coordinates, this->getSize(),6);
 }
 
-Voxel::Voxel(Color color){
-    this->isEmpty_flag = false;
-    this->setColor(color);
+Voxel::Voxel(Vector3 coordinates, Material material){
+    this->faces[0] = VoxelMath::getVoxelFaces(coordinates, this->getSize(),1);
+    this->faces[1] = VoxelMath::getVoxelFaces(coordinates, this->getSize(),2);
+    this->faces[2] = VoxelMath::getVoxelFaces(coordinates, this->getSize(),3);
+    this->faces[3] = VoxelMath::getVoxelFaces(coordinates, this->getSize(),4);
+    this->faces[4] = VoxelMath::getVoxelFaces(coordinates, this->getSize(),5);
+    this->faces[5] = VoxelMath::getVoxelFaces(coordinates, this->getSize(),6);
+
+    this->material = material;
 }
 
-bool Voxel::isEmpty(){
-    return this->isEmpty_flag;
+Face Voxel::getFaceByNum(int num){
+    return this->faces[num];
 }
 
-float Voxel::getSize(){
-    return this->size;
+void Voxel::setMaterial(Material material){
+    this->material = material;
 }
 
-Vector3 Voxel::getCoordinates(){
-    return this->coordinates;
+Material Voxel::getMaterial(){
+    return this->material;
 }
 
-//VoxelFaces Voxel::getVoxelFaces(){
-//    return this->faces;
-//}
+void Voxel::setPosition(Vector3 pos){
+    this->position = pos;
+}
+
+Vector3 Voxel::getPosition(){
+    return this->position;
+}

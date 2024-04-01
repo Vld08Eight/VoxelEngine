@@ -4,7 +4,7 @@
 #include "raylib.h"
 #include "math.h"
 #include <iostream>
-#include "../core/face.h"
+#include "../core/Face.h"
 
 
 

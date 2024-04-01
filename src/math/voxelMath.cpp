@@ -80,7 +80,7 @@ Vector3 VoxelMath::vec3Multiply(Vector3 a, Vector3 b){
 }
 
 Vector3 VoxelMath::getfaceNormal(Face face){
-    Vector3* dots = face.getFaceDots();
+    Vector3* dots = face.getCoordinates();
     Vector3 p1 = VoxelMath::arrToWorld(dots[0], face.getSize());
     Vector3 p2 = VoxelMath::arrToWorld(dots[1], face.getSize());
     Vector3 p3 = VoxelMath::arrToWorld(dots[2], face.getSize());
