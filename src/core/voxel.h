@@ -1,30 +1,32 @@
 #ifndef VOXEL_H
 #define VOXEL_H
 
-#include "main.h"
 #include "Face.h"
-#include "Material.h"
+#include "Mater.h"
 #include "../math/voxelMath.h"
 
 class Voxel: public Face
 {
 private:
 	Face faces[6];
-	Material material;
+	Mater material;
 	Vector3 position;
 	bool isEmpty = true;
 public:
 	Voxel();
 	Voxel(Vector3);
-	Voxel(Vector3, Material);
+	Voxel(Vector3, Mater);
 	//
 	Face getFaceByNum(int);
 	//
-	void setMaterial(Material);
-	Material getMaterial();
+	void setMater(Mater);
+	Mater getMater();
 	//
 	void setPosition(Vector3);
 	Vector3 getPosition();
+
+	void SetEmpty(bool is);
+	bool isEmptyB();
 };
 
 

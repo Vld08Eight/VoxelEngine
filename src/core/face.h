@@ -1,7 +1,10 @@
 #ifndef FACE_H
 #define FACE_H
 
-#include "main.h"
+#include "raylib.h"
+#include "math.h"
+#include <iostream>
+#include <vector>
 
 class Face
 {

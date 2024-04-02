@@ -6,4 +6,6 @@
 #include <iostream>
 #include <vector>
 
+#include "core/World.h"
+
 #endif // MAIN_H

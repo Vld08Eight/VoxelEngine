@@ -11,7 +11,7 @@ Voxel::Voxel(Vector3 coordinates){
     this->faces[5] = VoxelMath::getVoxelFaces(coordinates, this->getSize(),6);
 }
 
-Voxel::Voxel(Vector3 coordinates, Material material){
+Voxel::Voxel(Vector3 coordinates, Mater material){
     this->faces[0] = VoxelMath::getVoxelFaces(coordinates, this->getSize(),1);
     this->faces[1] = VoxelMath::getVoxelFaces(coordinates, this->getSize(),2);
     this->faces[2] = VoxelMath::getVoxelFaces(coordinates, this->getSize(),3);
@@ -26,11 +26,11 @@ Face Voxel::getFaceByNum(int num){
     return this->faces[num];
 }
 
-void Voxel::setMaterial(Material material){
+void Voxel::setMater(Mater material){
     this->material = material;
 }
 
-Material Voxel::getMaterial(){
+Mater Voxel::getMater(){
     return this->material;
 }
 
@@ -40,4 +40,12 @@ void Voxel::setPosition(Vector3 pos){
 
 Vector3 Voxel::getPosition(){
     return this->position;
+}
+
+void Voxel::SetEmpty(bool is){
+    this->isEmpty = is;
+};
+
+bool Voxel::isEmptyB(){
+    return isEmpty;
 }

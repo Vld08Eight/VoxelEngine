@@ -1,8 +1,12 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
-#include "main.h"
 
-class Material
+#include "raylib.h"
+#include "math.h"
+#include <iostream>
+#include <vector>
+
+class Mater
 {
 private:
 	Color color;
@@ -10,12 +14,11 @@ private:
 	float mass;
 	float hardness;
 public:
-	Material();
-	Material(Color);
-	Material(Color,float transparency);
-	Material(Color,float mass);
-	Material(Color,float transparency, float mass);
-	Material(Color,float transparency, float mass, float hardness);
+	Mater();
+	Mater(Color);
+	Mater(Color,float mass);
+	Mater(Color,float transparency, float mass);
+	Mater(Color,float transparency, float mass, float hardness);
 	//
 	void setColor(Color);
 	Color getColor();

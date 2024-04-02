@@ -1,68 +1,68 @@
-#include "Material.h"
+#include "Mater.h"
 
-Material::Material(){
+Mater::Mater(){
     this->color = GREEN;
     this->mass = 1;
     this->hardness = 1;
     this->transparency = 0;
 }
 
-Material::Material(Color color){
+Mater::Mater(Color color){
     this->color = color;
     this->mass = 1;
     this->hardness = 1;
     this->transparency = 0;
 }
 
-Material::Material(Color color, float mass){
+Mater::Mater(Color color, float mass){
     this->color = color;
     this->mass = mass;
     this->hardness = 1;
     this->transparency = 0;
 }
 
-Material::Material(Color color,float transparency, float mass){
+Mater::Mater(Color color,float transparency, float mass){
     this->color = color;
     this->mass = mass;
     this->hardness = 1;
     this->transparency = transparency;
 }
 
-Material::Material(Color color,float transparency, float mass, float hardness){
+Mater::Mater(Color color,float transparency, float mass, float hardness){
     this->color = color;
     this->mass = mass;
     this->hardness = hardness;
     this->transparency = transparency;
 }
 
-void Material::setColor(Color color){
+void Mater::setColor(Color color){
     this->color = color;
 }
 
-Color Material::getColor(){
+Color Mater::getColor(){
     return this->color;
 }
 
-void Material::setTransparency(float transparency){
+void Mater::setTransparency(float transparency){
     this->transparency = transparency;
 }
 	
-float Material::getTransparency(){
+float Mater::getTransparency(){
     return this->transparency;
 }
 	
-void Material::setMass(float mass){
+void Mater::setMass(float mass){
     this->mass = mass;
 }
 	
-float Material::getMass(){
+float Mater::getMass(){
     return this->mass;
 }
 	
-void Material::setHardness(float hardness){
+void Mater::setHardness(float hardness){
     this->hardness = hardness;
 }
 	
-float Material::getHardness(){
+float Mater::getHardness(){
     return this->hardness;
 }
